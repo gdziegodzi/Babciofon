@@ -1,5 +1,8 @@
 import React from 'react';
 import { View, Text, Switch, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { Screen } from '@/components/Screen';
 import { BigButton } from '@/components/BigButton';
 import { useSettingsStore } from '@/store/settingsStore';
@@ -10,6 +13,7 @@ import {
   spacing,
   radii,
 } from '@/theme/theme';
+import type { RootStackParamList } from '@/navigation/RootNavigator';
 
 const FONT_PRESETS: Array<{ label: string; value: number }> = [
   { label: 'Mały', value: 0.9 },
@@ -19,6 +23,8 @@ const FONT_PRESETS: Array<{ label: string; value: number }> = [
 ];
 
 export function SettingsScreen() {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const settings = useSettingsStore((s) => s.settings);
   const update = useSettingsStore((s) => s.update);
   const reset = useSettingsStore((s) => s.reset);
@@ -91,6 +97,13 @@ export function SettingsScreen() {
           })}
         </View>
       </View>
+
+      {/* Zarządzanie szablonami */}
+      <BigButton
+        label="Zarządzaj szablonami alarmów"
+        variant="surface"
+        onPress={() => navigation.navigate('TemplatesList')}
+      />
 
       {/* Reset */}
       <BigButton label="Przywróć domyślne" variant="surface" onPress={reset} />

@@ -12,10 +12,14 @@ import { ContactsScreen } from '@/screens/ContactsScreen';
 import { ContactEditScreen } from '@/screens/ContactEditScreen';
 import { AlarmScreen } from '@/screens/AlarmScreen';
 import { SettingsScreen } from '@/screens/SettingsScreen';
+import { TemplatesListScreen } from '@/screens/TemplatesListScreen';
+import { TemplateEditScreen } from '@/screens/TemplateEditScreen';
 
 export type RootStackParamList = {
   Tabs: undefined;
   ContactEdit: { contactId?: string };
+  TemplatesList: undefined;
+  TemplateEdit: { templateId?: string };
 };
 
 export type TabParamList = {
@@ -103,9 +107,18 @@ export function RootNavigator() {
     },
   };
 
+  const headerStyle = {
+    backgroundColor: c.background,
+  };
+
   return (
     <NavigationContainer theme={navTheme}>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle,
+          headerTintColor: c.text,
+        }}
+      >
         <Stack.Screen
           name="Tabs"
           component={Tabs}
@@ -116,8 +129,18 @@ export function RootNavigator() {
           component={ContactEditScreen}
           options={({ route }) => ({
             title: route.params?.contactId ? 'Edytuj kontakt' : 'Dodaj kontakt',
-            headerStyle: { backgroundColor: c.background },
-            headerTintColor: c.text,
+          })}
+        />
+        <Stack.Screen
+          name="TemplatesList"
+          component={TemplatesListScreen}
+          options={{ title: 'Szablony alarmów' }}
+        />
+        <Stack.Screen
+          name="TemplateEdit"
+          component={TemplateEditScreen}
+          options={({ route }) => ({
+            title: route.params?.templateId ? 'Edytuj szablon' : 'Dodaj szablon',
           })}
         />
       </Stack.Navigator>

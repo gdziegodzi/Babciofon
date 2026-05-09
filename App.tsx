@@ -18,18 +18,20 @@ export default function App() {
   const highContrast = useSettingsStore((s) => s.settings.highContrast);
   const loadContacts = useContactsStore((s) => s.load);
   const loadTemplates = useTemplatesStore((s) => s.load);
+  const seedTemplates = useTemplatesStore((s) => s.seedDefaultsIfEmpty);
 
   useEffect(() => {
     (async () => {
       try {
         await initDatabase();
         await Promise.all([loadSettings(), loadContacts(), loadTemplates()]);
+        await seedTemplates();
         setReady(true);
       } catch (e) {
         setError(e instanceof Error ? e.message : String(e));
       }
     })();
-  }, [loadSettings, loadContacts, loadTemplates]);
+  }, [loadSettings, loadContacts, loadTemplates, seedTemplates]);
 
   const c = getColors(highContrast);
 
