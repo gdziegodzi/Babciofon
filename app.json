@@ -5,7 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "scheme": "babciofon",
+    "newArchEnabled": false,
     "android": {
       "package": "com.babciofon",
       "versionCode": 1,
@@ -43,7 +44,24 @@
           "locationAlwaysAndWhenInUsePermission": "Aplikacja używa lokalizacji do dołączenia jej do alarmowej wiadomości SMS."
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "QuickCall",
+              "label": "Babciofon - Szybkie dzwonienie",
+              "description": "Ulubione kontakty i alarm SMS na ekranie głównym",
+              "minWidth": "250dp",
+              "minHeight": "180dp",
+              "targetCellWidth": 4,
+              "targetCellHeight": 3,
+              "updatePeriodMillis": 1800000
+            }
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": false
